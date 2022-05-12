@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class InventoryService {
-//    test
     @Autowired
     InventoryRepository inventoryRepository;
 
