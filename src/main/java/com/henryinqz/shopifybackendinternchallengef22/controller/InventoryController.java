@@ -18,7 +18,7 @@ public class InventoryController {
         return inventoryService.list();
     }
 
-    @PostMapping(path="/create")
+    @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Inventory newEntry) {
         return inventoryService.create(newEntry);
     }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventory Management System</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" th:src="@{/js/inventory.js}"></script>
+</head>
+<body>
+<div th:switch="${inventory}">
+    <h2 th:case="null">Inventory is empty!</h2>
+    <div th:case="*">
+        <h2>Inventory</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="inventoryEntry : ${inventory}">
+                <td th:text="${inventoryEntry.name}"></td>
+                <td th:text="${inventoryEntry.quantity}"></td>
+                <td>
+                    <button
+                            type="submit"
+                            th:inventoryEntryId="${inventoryEntry.id}"
+                            th:onclick="onInventorySubmitUpdate(this.getAttribute('inventoryEntryId'))"
+                    >Update</button>
+                </td>
+                <td>
+                    <button
+                            type="submit"
+                            th:inventoryEntryId="${inventoryEntry.id}"
+                            th:onclick="onInventoryDelete(this.getAttribute('inventoryEntryId'))"
+                    >Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Create new inventory entry -->
+    <div>
+        <h3>Create a new inventory entry</h3>
+        <form>
+            <label for="createInventoryEntryName">Name: </label>
+            <input
+                    type="text"
+                    id="createInventoryEntryName"
+                    name="createInventoryEntryName"
+            ><br>
+
+            <label for="createInventoryEntryQuantity">Quantity: </label>
+            <input
+                    type="number"
+                    min="0"
+                    id="createInventoryEntryQuantity"
+                    name="createInventoryEntryQuantity"
+            ><br>
+        </form>
+        <button type="submit" th:onclick="onInventorySubmit()">Create</button>
+    </div>
+
+</div>
+</body>
+</html>
