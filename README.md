@@ -26,6 +26,6 @@ spring.data.mongodb.database=your MongoDB database name
 |----------|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
 | `GET`    | `/inventory/list`    | Returns a JSON array of all entries in the `inventory` collection                                                                                   |
 | `POST`   | `/inventory/create` | Takes a single JSON object (ex. `{name: "Entry Name", quantity: 1}`) as the request body and create a new entry in the`inventory` collection        |
-| `POST`   | `/inventory/{id}`    | Takes a single JSON object (ex. `{name: "Updated Name", quantity: 3}`) as the request body and updates `inventory` collection entry with given `id` |
+| `PUT`    | `/inventory/{id}`    | Takes a single JSON object (ex. `{name: "Updated Name", quantity: 3}`) as the request body and updates `inventory` collection entry with given `id` |
 | `DELETE` | `/inventory/{id}}`   | Removes `inventory` collection entry with given `id`                                                               |
 
