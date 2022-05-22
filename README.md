@@ -7,6 +7,7 @@ This inventory tracking web application was created for the [Shopify Backend Dev
   - Edit Them
   - Delete Them
   - View a list of them
+- Ability to create warehouses/locations and assign inventory to specific locations
 
 ## Stack
 - Spring Boot
@@ -21,11 +22,18 @@ spring.data.mongodb.database=your MongoDB database name
 ```
 
 ## Endpoints
-
-| Method   | Endpoint             | Description                                                                                                                                         |
-|----------|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| `GET`    | `/inventory/list`    | Returns a JSON array of all entries in the `inventory` collection                                                                                   |
-| `POST`   | `/inventory/create` | Takes a single JSON object (ex. `{name: "Entry Name", quantity: 1}`) as the request body and create a new entry in the`inventory` collection        |
-| `PUT`    | `/inventory/{id}`    | Takes a single JSON object (ex. `{name: "Updated Name", quantity: 3}`) as the request body and updates `inventory` collection entry with given `id` |
-| `DELETE` | `/inventory/{id}}`   | Removes `inventory` collection entry with given `id`                                                               |
+### Inventory
+| Method   | Endpoint            | Description                                                                                             | Example Body                            |
+|----------|---------------------|---------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| `GET`    | `/inventory/list`   | Returns a JSON array of all entries in the `inventory` collection                                       |
+| `POST`   | `/inventory/create` | Takes a single JSON object as the request body and create a new entry in the `inventory` collection     | `{name: "Entry Name", quantity: 50}`    |
+| `PUT`    | `/inventory/{id}`   | Takes a single JSON object as the request body and updates `inventory` collection entry with given `id` | `{name: "Updated Name", quantity: 300}` |
+| `DELETE` | `/inventory/{id}}`  | Removes entry from `inventory` collection with given `id`                                               |
+### Locations
+| Method   | Endpoint            | Description                                                                                             | Example Body                                                                                                               |
+|----------|---------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| `GET`    | `/locations/list`   | Returns a JSON array of all entries in the `location` collection                                        |
+| `POST`   | `/locations/create` | Takes a single JSON object as the request body and create a new entry in the `location` collection      | `{name: "YYZ Warehouse", address: "290 Bremner Blvd", zipCode: "M5V 3L9", city: "Toronto", state: "ON" country: "Canada"}` |
+| `PUT`    | `/locations/{id}`   | Takes a single JSON object as the request body and updates `location` collection entry with given `id`  | `{name: "ATL Store", address: "55 Trinity Ave SW", zipCode: "303030", city: "Atlanta", state: "GA", country: "USA"`        |
+| `DELETE` | `/locations/{id}}`  | Removes entry from `location` collection with given `id`                                                |
 

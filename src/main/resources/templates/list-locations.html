@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Inventory Management System</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <script type="text/javascript" th:src="@{/js/location.js}"></script>
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Inventory Management System</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="inactive"><a th:href="@{/}">Inventory</a></li>
+                        <li class="active"><a th:href="@{/locations}">Locations</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div th:switch="${locations}">
+            <h2 th:case="null">No locations defined!</h2>
+            <div th:case="*">
+                <h2>Locations</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Zip/Postal Code</th>
+                        <th>City</th>
+                        <th>State/Province</th>
+                        <th>Country</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="location : ${locations}">
+                        <td th:text="${location.name}"></td>
+                        <td th:text="${location.address}"></td>
+                        <td th:text="${location.zipCode}"></td>
+                        <td th:text="${location.city}"></td>
+                        <td th:text="${location.state}"></td>
+                        <td th:text="${location.country}"></td>
+                        <td>
+                            <button
+                                    type="submit"
+                                    th:locationId="${location.id}"
+                                    th:onclick="onLocationSubmitUpdate(this.getAttribute('locationId'))"
+                            >Update</button>
+                        </td>
+                        <td>
+                            <button
+                                    type="submit"
+                                    th:locationId="${location.id}"
+                                    th:onclick="onLocationDelete(this.getAttribute('locationId'))"
+                            >Delete</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Create new location -->
+            <div>
+                <h3>Create a new location</h3>
+                <form>
+                    <label for="createLocationName">Name: </label>
+                    <input
+                            type="text"
+                            id="createLocationName"
+                            name="createLocationName"
+                    ><br>
+
+                    <label for="createLocationAddress">Address: </label>
+                    <input
+                            type="text"
+                            id="createLocationAddress"
+                            name="createLocationAddress"
+                    ><br>
+
+                    <label for="createLocationZipCode">Zip/Postal Code: </label>
+                    <input
+                            type="text"
+                            id="createLocationZipCode"
+                            name="createLocationZipCode"
+                    ><br>
+
+                    <label for="createLocationCity">City: </label>
+                    <input
+                            type="text"
+                            id="createLocationCity"
+                            name="createLocationCity"
+                    ><br>
+
+                    <label for="createLocationState">State/Province: </label>
+                    <input
+                            type="text"
+                            id="createLocationState"
+                            name="createLocationState"
+                    ><br>
+
+                    <label for="createLocationCountry">Country: </label>
+                    <input
+                            type="text"
+                            id="createLocationCountry"
+                            name="createLocationCountry"
+                    ><br>
+                </form>
+                <button type="submit" th:onclick="onLocationSubmit()">Create</button>
+            </div>
+
+        </div>
+    </body>
+</html>
