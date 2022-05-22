@@ -8,14 +8,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/locations")
+@RequestMapping("/api/locations")
 public class LocationController {
     @Autowired
     LocationService locationService;
 
-    @GetMapping("/list")
+    @GetMapping("/")
     public ResponseEntity<?> list() {
         return locationService.list();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> listLocation(@PathVariable String id) {
+        return locationService.listLocation(id);
     }
 
     @PostMapping("/create")

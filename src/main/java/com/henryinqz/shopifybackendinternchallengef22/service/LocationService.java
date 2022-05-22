@@ -16,6 +16,14 @@ public class LocationService {
         return ResponseEntity.ok(locationRepository.findAll());
     }
 
+    public ResponseEntity<?> listLocation(String id) {
+        Location location = locationRepository.findById(id).orElse(null);
+        if (location == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(location);
+    }
+
     public ResponseEntity<?> create(Location location) {
         locationRepository.save(location);
         return ResponseEntity.ok(new APIResponse(true, "Created location " + location.id));

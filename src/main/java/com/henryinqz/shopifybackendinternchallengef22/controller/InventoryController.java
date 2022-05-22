@@ -8,14 +8,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/inventory")
+@RequestMapping("/api/inventory")
 public class InventoryController {
     @Autowired
     InventoryService inventoryService;
 
-    @GetMapping("/list")
+    @GetMapping("/")
     public ResponseEntity<?> list() {
         return inventoryService.list();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> listInventoryEntry(@PathVariable String id) {
+        return inventoryService.listInventoryEntry(id);
     }
 
     @PostMapping("/create")

@@ -1,9 +1,11 @@
+const BASE_INVENTORY_ENDPOINT = "/api/inventory"
+
 function onInventorySubmit() {
     const name = document.querySelector("#createInventoryEntryName").value
     const quantity = document.querySelector("#createInventoryEntryQuantity").value
 
     if (name !== '' && quantity !== '') {
-        fetch("/inventory/create", {
+        fetch(`${BASE_INVENTORY_ENDPOINT}/create`, {
             method: "POST",
             headers: {"content-type": "application/json"},
             body: JSON.stringify({
@@ -18,7 +20,7 @@ function onInventorySubmit() {
 }
 
 function onInventorySubmitUpdate(id) {
-    fetch(`/inventory/${id}`, {
+    fetch(`${BASE_INVENTORY_ENDPOINT}/${id}`, {
         method: "PUT",
         headers: {"content-type": "application/json"},
         body: JSON.stringify({
@@ -32,7 +34,7 @@ function onInventorySubmitUpdate(id) {
 }
 
 function onInventoryDelete(id) {
-    fetch(`/inventory/${id}`, {
+    fetch(`${BASE_INVENTORY_ENDPOINT}/${id}`, {
         method: "DELETE"
     })
         .then(response => response.json())

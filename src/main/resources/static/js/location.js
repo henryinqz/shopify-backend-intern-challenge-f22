@@ -1,3 +1,5 @@
+const BASE_LOCATIONS_ENDPOINT = "/api/locations"
+
 function onLocationSubmit() {
     const name = document.querySelector("#createLocationName").value
     const address = document.querySelector("#createLocationAddress").value
@@ -7,7 +9,7 @@ function onLocationSubmit() {
     const country = document.querySelector("#createLocationCountry").value
 
     if (name !== '' && address !== '' && zipCode !== '' && city !== '' && state !== '' && country !== '') {
-        fetch("/locations/create", {
+        fetch(`${BASE_LOCATIONS_ENDPOINT}/create`, {
             method: "POST",
             headers: {"content-type": "application/json"},
             body: JSON.stringify({
@@ -26,7 +28,7 @@ function onLocationSubmit() {
 }
 
 function onLocationSubmitUpdate(id) {
-    fetch(`/locations/${id}`, {
+    fetch(`${BASE_LOCATIONS_ENDPOINT}/${id}`, {
         method: "PUT",
         headers: {"content-type": "application/json"},
         body: JSON.stringify({
@@ -44,7 +46,7 @@ function onLocationSubmitUpdate(id) {
 }
 
 function onLocationDelete(id) {
-    fetch(`/locations/${id}`, {
+    fetch(`${BASE_LOCATIONS_ENDPOINT}/${id}`, {
         method: "DELETE"
     })
         .then(response => response.json())

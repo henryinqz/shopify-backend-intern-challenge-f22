@@ -16,6 +16,14 @@ public class InventoryService {
         return ResponseEntity.ok(inventoryRepository.findAll());
     }
 
+    public ResponseEntity<?> listInventoryEntry(String id) {
+        Inventory inventoryEntry = inventoryRepository.findById(id).orElse(null);
+        if (inventoryEntry == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(inventoryEntry);
+    }
+
     public ResponseEntity<?> create(Inventory inventoryEntry) {
         inventoryRepository.save(inventoryEntry);
         return ResponseEntity.ok(new APIResponse(true, "Created inventory entry " + inventoryEntry.id));
