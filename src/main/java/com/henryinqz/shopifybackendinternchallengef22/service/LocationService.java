@@ -77,7 +77,7 @@ public class LocationService {
         String updatedCountry = (String) payload.get("country");
 
         // Update location
-        if (payload.containsKey("name") && updatedName != null || !updatedName.equals(""))            location.name = updatedName;
+        if (payload.containsKey("name") && updatedName != null && !updatedName.equals(""))            location.name = updatedName;
         if (payload.containsKey("address") && updatedAddress != null && !updatedAddress.equals(""))   location.address = updatedAddress;
         if (payload.containsKey("zipCode") && updatedZipCode != null && !updatedZipCode.equals(""))   location.zipCode = updatedZipCode;
         if (payload.containsKey("city") && updatedCity != null && !updatedCity.equals(""))            location.city = updatedCity;
