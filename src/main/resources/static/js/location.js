@@ -26,21 +26,28 @@ function onLocationSubmit() {
     }
 }
 
-function onLocationSubmitUpdate(id) {
+function onLocationSubmitUpdate() {
+    const id = document.querySelector("#updateLocationId").value
+    const updatedName = document.querySelector("#updateLocationName").value
+    const updatedAddress = document.querySelector("#updateLocationAddress").value
+    const updatedZipCode = document.querySelector("#updateLocationZipCode").value
+    const updatedCity = document.querySelector("#updateLocationCity").value
+    const updatedState = document.querySelector("#updateLocationState").value
+    const updatedCountry = document.querySelector("#updateLocationCountry").value
+
     fetch(`${BASE_LOCATIONS_ENDPOINT}/${id}`, {
         method: "PUT",
         headers: {"content-type": "application/json"},
         body: JSON.stringify({
-            name: "Updated location name!",
-            address: "123 Happyjack Street",
-            zipCode: "H0H0H0",
-            city: "Markham",
-            state: "ON",
-            country: "Canada"
+            name: updatedName,
+            address: updatedAddress,
+            zipCode: updatedZipCode,
+            city: updatedCity,
+            state: updatedState,
+            country: updatedCountry
         })
     })
         .then(response => response.json())
-        .then(data => console.log(data))
         .then(() => window.location.reload())
 }
 

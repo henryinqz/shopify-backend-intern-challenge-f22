@@ -11,16 +11,18 @@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Inventory Management System</a>
+                    <b class="navbar-brand">Inventory Management System by Henry Wong</b>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="inactive"><a th:href="@{/}">Inventory</a></li>
                         <li class="active"><a th:href="@{/locations}">Locations</a></li>
+                        <li class="inactive"><a href="https://github.com/henryinqz/shopify-backend-intern-challenge-f22">Github Repo</a></li>
                     </ul>
                 </div>
             </div>
         </div>
+        <hr class="rounded">
 
         <div th:switch="${locations}">
             <h2 th:case="null">No locations defined!</h2>
@@ -49,13 +51,6 @@
                             <button
                                     type="submit"
                                     th:locationId="${location.id}"
-                                    th:onclick="onLocationSubmitUpdate(this.getAttribute('locationId'))"
-                            >Update</button>
-                        </td>
-                        <td>
-                            <button
-                                    type="submit"
-                                    th:locationId="${location.id}"
                                     th:onclick="onLocationDelete(this.getAttribute('locationId'))"
                             >Delete</button>
                         </td>
@@ -63,6 +58,8 @@
                     </tbody>
                 </table>
             </div>
+
+            <hr class="dashed">
 
             <!-- Create new location -->
             <div>
@@ -111,6 +108,70 @@
                     ><br>
                 </form>
                 <button type="submit" th:onclick="onLocationSubmit()">Create</button>
+            </div>
+
+            <hr class="dashed">
+
+            <!-- Update location -->
+            <div>
+                <h3>Update an existing location</h3>
+                <form>
+                    <label for="updateLocationId">Location to update: </label>
+                    <select
+                            id="updateLocationId"
+                            name="updateLocationId"
+                            th:field="${locations}">
+                        <option
+                                th:each="location : ${locations}"
+                                th:value="${location.id}"
+                                th:text="${location.name}"
+                        >
+                        </option>
+                    </select><br>
+
+                    <label for="updateLocationName">Name: </label>
+                    <input
+                            type="text"
+                            id="updateLocationName"
+                            name="updateLocationName"
+                    ><br>
+
+                    <label for="updateLocationAddress">Address: </label>
+                    <input
+                            type="text"
+                            id="updateLocationAddress"
+                            name="updateLocationAddress"
+                    ><br>
+
+                    <label for="updateLocationZipCode">Zip/Postal Code: </label>
+                    <input
+                            type="text"
+                            id="updateLocationZipCode"
+                            name="updateLocationZipCode"
+                    ><br>
+
+                    <label for="updateLocationCity">City: </label>
+                    <input
+                            type="text"
+                            id="updateLocationCity"
+                            name="updateLocationCity"
+                    ><br>
+
+                    <label for="updateLocationState">State/Province: </label>
+                    <input
+                            type="text"
+                            id="updateLocationState"
+                            name="updateLocationState"
+                    ><br>
+
+                    <label for="updateLocationCountry">Country: </label>
+                    <input
+                            type="text"
+                            id="updateLocationCountry"
+                            name="updateLocationCountry"
+                    ><br>
+                </form>
+                <button type="submit" th:onclick="onLocationSubmitUpdate()">Update</button>
             </div>
 
         </div>

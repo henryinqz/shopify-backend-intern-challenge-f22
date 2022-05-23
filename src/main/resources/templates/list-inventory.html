@@ -11,16 +11,18 @@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" th:href="@{/}">Inventory Management System</a>
+                    <b class="navbar-brand">Inventory Management System by Henry Wong</b>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a th:href="@{/}">Inventory</a></li>
-                        <li class="inactive"><a th:href="@{/locations}">Locations</a></li>
+                        <li class="inactive"><a th:href="@{/}">Inventory</a></li>
+                        <li class="active"><a th:href="@{/locations}">Locations</a></li>
+                        <li class="inactive"><a href="https://github.com/henryinqz/shopify-backend-intern-challenge-f22">Github Repo</a></li>
                     </ul>
                 </div>
             </div>
         </div>
+        <hr class="rounded">
 
         <div th:switch="${inventory}">
             <h2 th:case="null">Inventory is empty!</h2>
@@ -43,13 +45,6 @@
                             <button
                                     type="submit"
                                     th:inventoryEntryId="${inventoryEntry.id}"
-                                    th:onclick="onInventorySubmitUpdate(this.getAttribute('inventoryEntryId'))"
-                            >Update</button>
-                        </td>
-                        <td>
-                            <button
-                                    type="submit"
-                                    th:inventoryEntryId="${inventoryEntry.id}"
                                     th:onclick="onInventoryDelete(this.getAttribute('inventoryEntryId'))"
                             >Delete</button>
                         </td>
@@ -57,6 +52,8 @@
                     </tbody>
                 </table>
             </div>
+
+            <hr class="dashed">
 
             <!-- Create new inventory entry -->
             <div>
@@ -87,6 +84,49 @@
                 <button type="submit" th:onclick="onInventorySubmit()">Create</button>
             </div>
 
+            <hr class="dashed">
+
+            <!-- Update inventory entry -->
+            <div>
+                <h3>Update an existing inventory entry</h3>
+                <form>
+                    <label for="updateInventoryEntryId">Entry to update: </label>
+                    <select
+                            id="updateInventoryEntryId"
+                            name="updateInventoryEntryId"
+                            th:field="${inventory}">
+                        <option
+                                th:each="inventoryEntry : ${inventory}"
+                                th:value="${inventoryEntry.id}"
+                                th:text="${inventoryEntry.name}"
+                                >
+                        </option>
+                    </select><br>
+
+                    <label for="updateInventoryEntryName">Name: </label>
+                    <input
+                            type="text"
+                            id="updateInventoryEntryName"
+                            name="updateInventoryEntryName"
+                    ><br>
+
+                    <label for="updateInventoryEntryQuantity">Quantity: </label>
+                    <input
+                            type="number"
+                            id="updateInventoryEntryQuantity"
+                            name="updateInventoryEntryQuantity"
+                    ><br>
+
+                    <label for="updateInventoryEntryLocationId">Location: </label>
+                    <select
+                            id="updateInventoryEntryLocationId"
+                            name="updateInventoryEntryLocationId"
+                            th:field="${locations}">
+                        <option th:each="location : ${locations}" th:value="${location.id}" th:text="${location.name}"></option>
+                    </select>
+                </form>
+                <button type="submit" th:onclick="onInventorySubmitUpdate()">Update</button>
+            </div>
         </div>
     </body>
 </html>

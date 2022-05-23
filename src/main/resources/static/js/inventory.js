@@ -20,14 +20,19 @@ function onInventorySubmit() {
     }
 }
 
-function onInventorySubmitUpdate(id) {
+function onInventorySubmitUpdate() {
+    const id = document.querySelector("#updateInventoryEntryId").value
+    const updatedName = document.querySelector("#updateInventoryEntryName").value
+    const updatedQuantity = document.querySelector("#updateInventoryEntryQuantity").value
+    const updatedLocationId = document.querySelector("#updateInventoryEntryLocationId").value
+
     fetch(`${BASE_INVENTORY_ENDPOINT}/${id}`, {
         method: "PUT",
         headers: {"content-type": "application/json"},
         body: JSON.stringify({
-            name: "Updated Item!",
-            quantity: 2,
-            locationId: "628a868059a10309f7f35172"
+            name: updatedName,
+            quantity: updatedQuantity,
+            locationId: updatedLocationId
         })
     })
         .then(response => response.json())

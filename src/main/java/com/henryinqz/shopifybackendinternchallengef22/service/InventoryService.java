@@ -55,12 +55,12 @@ public class InventoryService {
         if (payload == null) return ResponseEntity.unprocessableEntity().build();
 
         String name = (String) payload.get("name");
-        int quantity = (int) payload.get("quantity");
+        String quantity = (String) payload.get("quantity");
         String locationId = (String) payload.get("locationId");
 
         if (!payload.containsKey("name") || name == null || name.equals(""))
             return ResponseEntity.badRequest().body(new APIResponse(false, "Body is missing 'name' field"));
-        else if (!payload.containsKey("quantity"))
+        else if (!payload.containsKey("quantity") || quantity == null || quantity.equals(""))
             return ResponseEntity.badRequest().body(new APIResponse(false, "Body is missing 'quantity' field"));
         else if (!payload.containsKey("locationId") || locationId == null || locationId.equals(""))
             return ResponseEntity.badRequest().body(new APIResponse(false, "Body is missing 'locationId' field"));
@@ -71,7 +71,12 @@ public class InventoryService {
 
         // Create inventory entry
         Location location = (Location) locationResponse.getBody();
-        Inventory inventoryEntry = new Inventory(name, quantity, location);
+        Inventory inventoryEntry;
+        try {
+            inventoryEntry = new Inventory(name, Integer.parseInt(quantity), location);
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body(new APIResponse(false, "'quantity' field does not contain an integer"));
+        }
         inventoryRepository.save(inventoryEntry);
         return ResponseEntity.ok(new APIResponse(true, "Created inventory entry " + inventoryEntry.id));
     }
@@ -84,7 +89,7 @@ public class InventoryService {
         if (payload == null) return ResponseEntity.unprocessableEntity().build();
 
         String updatedName = (String) payload.get("name");
-        int updatedQuantity = payload.get("quantity") == null ? 0 : (int) payload.get("quantity");
+        String updatedQuantity = (String) payload.get("quantity");
         String updatedLocationId = (String) payload.get("locationId");
 
         Location location = null;
@@ -97,7 +102,13 @@ public class InventoryService {
 
         // Update inventory entry
         if (payload.containsKey("name") && updatedName != null && !updatedName.equals("")) inventoryEntry.name = updatedName;
-        if (payload.containsKey("quantity")) inventoryEntry.quantity = updatedQuantity;
+        if (payload.containsKey("quantity") && updatedQuantity != null && !updatedQuantity.equals("")) {
+            try {
+                inventoryEntry.quantity = Integer.parseInt(updatedQuantity);
+            } catch (NumberFormatException e) {
+                return ResponseEntity.badRequest().body(new APIResponse(false, "'quantity' field does not contain an integer"));
+            }
+        }
         if (location != null) inventoryEntry.location = location;
         inventoryRepository.save(inventoryEntry);
         return ResponseEntity.ok(new APIResponse(true, "Updated inventory entry " + id));
