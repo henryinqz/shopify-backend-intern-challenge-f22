@@ -11,7 +11,7 @@ function onInventorySubmit() {
             headers: {"content-type": "application/json"},
             body: JSON.stringify({
                 name: name,
-                quantity: parseInt(quantity),
+                quantity: quantity,
                 locationId: locationId
             })
         })
