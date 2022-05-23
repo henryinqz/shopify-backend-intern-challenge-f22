@@ -1,11 +1,12 @@
 package com.henryinqz.shopifybackendinternchallengef22.controller;
 
-import com.henryinqz.shopifybackendinternchallengef22.model.Inventory;
 import com.henryinqz.shopifybackendinternchallengef22.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/api/inventory")
@@ -13,25 +14,28 @@ public class InventoryController {
     @Autowired
     InventoryService inventoryService;
 
-    @GetMapping("/")
-    public ResponseEntity<?> list() {
-        return inventoryService.list();
+    @GetMapping
+    public ResponseEntity<?> listAll() {
+        return inventoryService.listAll();
     }
-
     @GetMapping("/{id}")
-    public ResponseEntity<?> listInventoryEntry(@PathVariable String id) {
-        return inventoryService.listInventoryEntry(id);
+    public ResponseEntity<?> list(@PathVariable String id) {
+        return inventoryService.list(id);
+    }
+    @PostMapping
+    public ResponseEntity<?> listByLocationId(@RequestBody Map<String, Object> payload) {
+        return inventoryService.listByLocationId(payload);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody Inventory newEntry) {
-        return inventoryService.create(newEntry);
+    public ResponseEntity<?> create(@RequestBody Map<String, Object> payload) {
+        return inventoryService.create(payload);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable String id,
-                                    @RequestBody Inventory updatedEntry) {
-        return inventoryService.update(id, updatedEntry);
+                                    @RequestBody Map<String, Object> payload) {
+        return inventoryService.update(id, payload);
     }
 
     @DeleteMapping("/{id}")

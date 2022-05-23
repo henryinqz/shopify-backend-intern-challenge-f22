@@ -22,7 +22,6 @@ function onLocationSubmit() {
             })
         })
             .then(response => response.json())
-            .then(data => console.log(data))
             .then(() => window.location.reload())
     }
 }
@@ -50,6 +49,5 @@ function onLocationDelete(id) {
         method: "DELETE"
     })
         .then(response => response.json())
-        .then(data => console.log(data))
         .then(() => window.location.reload())
 }

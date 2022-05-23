@@ -16,7 +16,8 @@ public class PageController {
 
     @GetMapping("/")
     public String listInventory(Model model) {
-        model.addAttribute("inventory", inventoryService.list().getBody());
+        model.addAttribute("inventory", inventoryService.listAll().getBody());
+        model.addAttribute("locations", locationService.list().getBody());
         return "list-inventory";
     }
     @GetMapping("/locations")

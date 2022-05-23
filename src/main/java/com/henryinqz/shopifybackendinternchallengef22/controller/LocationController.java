@@ -7,13 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Controller
 @RequestMapping("/api/locations")
 public class LocationController {
     @Autowired
     LocationService locationService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<?> list() {
         return locationService.list();
     }
@@ -24,14 +26,14 @@ public class LocationController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody Location newLocation) {
-        return locationService.create(newLocation);
+    public ResponseEntity<?> create(@RequestBody Map<String, Object> payload) {
+        return locationService.create(payload);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable String id,
-                                    @RequestBody Location updatedLocation) {
-        return locationService.update(id, updatedLocation);
+                                    @RequestBody Map<String, Object> payload) {
+        return locationService.update(id, payload);
     }
 
     @DeleteMapping("/{id}")

@@ -31,12 +31,14 @@
                     <tr>
                         <th>Name</th>
                         <th>Quantity</th>
+                        <th>Location</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="inventoryEntry : ${inventory}">
                         <td th:text="${inventoryEntry.name}"></td>
                         <td th:text="${inventoryEntry.quantity}"></td>
+                        <td th:text="${inventoryEntry.location.name}"></td>
                         <td>
                             <button
                                     type="submit"
@@ -70,10 +72,17 @@
                     <label for="createInventoryEntryQuantity">Quantity: </label>
                     <input
                             type="number"
-                            min="0"
                             id="createInventoryEntryQuantity"
                             name="createInventoryEntryQuantity"
                     ><br>
+
+                    <label for="createInventoryEntryLocationId">Location: </label>
+                    <select
+                            id="createInventoryEntryLocationId"
+                            name="createInventoryEntryLocationId"
+                            th:field="${locations}">
+                        <option th:each="location : ${locations}" th:value="${location.id}" th:text="${location.name}"></option>
+                    </select>
                 </form>
                 <button type="submit" th:onclick="onInventorySubmit()">Create</button>
             </div>
