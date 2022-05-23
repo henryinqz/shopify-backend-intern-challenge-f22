@@ -1,6 +1,8 @@
 # Shopify Backend Intern Challenge (Fall 2022)
 This inventory tracking web application was created for the [Shopify Backend Developer Intern Challenge](https://docs.google.com/document/d/1PoxpoaJymXmFB3iCMhGL6js-ibht7GO_DkCF2elCySU/edit?usp=sharing).
 
+Deployed at https://shopify-challenge-logisticsco.herokuapp.com/ (was unable to deploy to Replit, I suspect they do not fully support MongoDB in Spring Boot)
+.
 ## Features
 - Basic CRUD Functionality
   - Create Inventory Items
