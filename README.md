@@ -8,6 +8,7 @@ This inventory tracking web application was created for the [Shopify Backend Dev
   - Delete Them
   - View a list of them
 - Ability to create warehouses/locations and assign inventory to specific locations
+  - Deleting a location will delete all inventory entries associated with that location  
 
 ## Stack
 - Spring Boot

@@ -102,6 +102,15 @@ public class LocationService {
        if (location == null)
            return ResponseEntity.notFound().build();
 
+        // Delete inventory entries associated w/ location
+        ResponseEntity<?> inventoryResponse = inventoryService.listByLocationId(location.id);
+        if (inventoryResponse.getStatusCode() == HttpStatus.OK) {
+            List<Inventory> inventoryListToDelete = (List<Inventory>) inventoryResponse.getBody();
+            Map<String, Object> locationIdMap = new HashMap<>();
+            locationIdMap.put("locationId", location.id);
+            inventoryListToDelete.forEach(inventoryEntryToDelete -> inventoryService.delete(inventoryEntryToDelete.id));
+        }
+
        locationRepository.delete(location);
        return ResponseEntity.ok(new APIResponse(true, "Deleted location " + id));
     }
